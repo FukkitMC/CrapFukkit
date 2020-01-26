@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "crapfukkit",
+  "version": "${version}",
+  "name": "CrapFukkit",
+  "description": "Exploit and mechanic breaking parts of craftbukkit",
+  "authors": [
+    "HalfOf2"
+  ],
+  "contact": {
+    "homepage": "https://github.com/FukkitMC/CrapFukkit",
+    "souces": "https://github.com/FukkitMC/CrapFukkit"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/crapfukkit/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.fukkitmc.CrapFukkit"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "mixins": [
+    "crapfukkit.mixins.json"
+  ]
+}
