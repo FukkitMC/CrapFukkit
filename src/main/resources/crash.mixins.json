@@ -1,10 +1,10 @@
 {
   "required": true,
-  "package": "io.github.fukkitmc.mixin",
+  "package": "io.github.fukkitmc.mixin.crash",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [],
-  "client": [],
-  "server": [],
+  "mixins": [
+    "EntityRotationMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
