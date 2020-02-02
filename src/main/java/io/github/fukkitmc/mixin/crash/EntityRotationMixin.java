@@ -1,14 +1,17 @@
 package io.github.fukkitmc.mixin.crash;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(Entity.class)
@@ -17,6 +20,10 @@ public abstract class EntityRotationMixin {
 	@Shadow public abstract String getEntityName();
 
 	@Shadow public float pitch;
+
+	@Shadow private double y;
+
+	@Shadow public float yaw;
 
 	@ModifyArgs(method = "setRotation", at = @At("HEAD"))
 	private void crapfukkit_crashRotation(Args args) {
@@ -44,5 +51,13 @@ public abstract class EntityRotationMixin {
 			}
 			args.set(1, 0);
 		}
+	}
+
+	@Inject(method = "toTag", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;put(Ljava/lang/String;Lnet/minecraft/nbt/Tag;)Lnet/minecraft/nbt/Tag;", ordinal = 2))
+	private void fukkit_rotationNBT(CompoundTag tag, CallbackInfoReturnable<CompoundTag> cir) {
+		if(Float.isNaN(this.yaw))
+			this.yaw = 0;
+		if(Float.isNaN(this.pitch))
+			this.pitch = 0;
 	}
 }
